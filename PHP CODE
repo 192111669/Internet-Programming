@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forms get</title>
+</head>
+<body>
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $id = $_POST['UserID'];
+    $pass = $_POST['password'];
+    $reenter = $_POST['re-enterpassword'];
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $database = "vinay"; 
+  $con = mysqli_connect($servername, $username, $password, $database);
+
+  if (!$con) {
+      die("Sorry, we failed to connect: " . mysqli_connect_error());
+  } else {
+      echo "Connection was successful";
+  }
+  $sql = "INSERT INTO `wiper` (`name`, `UserID`, `password`, `re-enterpassword`) VALUES ('$name', '$id', '$pass', '$reenter');";
+  $result = mysqli_query($con, $sql);
+  if ($result) {
+    echo "Data inserted successfully";
+
+  } else {
+    echo "Data not inserted successfully";
+  }
+}
+?>
+<form action="/4/input.php" method="post">
+<br><br>  
+  Name:
+  <input type="text" id="name" name="name"><br><br>
+  Userid:
+  <input type="text" id="UserID" name="UserID"><br><br>
+  Password:
+  <input type="text" id="password" name="password"><br><br>
+  Re-Enter Password:
+  <input type="text" id="re-enterpassword" name="re-enterpassword"><br><br>
+  <input type="submit" value="Insert">
+</form>
+</body>
+</html>
